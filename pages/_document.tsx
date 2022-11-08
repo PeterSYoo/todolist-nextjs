@@ -7,9 +7,11 @@ const Document = () => {
         <Head>
           <title>Todo List - NextJS</title>
         </Head>
-        <body>
-          <Main />
-          <NextScript />
+        <body className="min-h-screen min-w-screen flex flex-col">
+          <div className="flex-grow">
+            <Main />
+            <NextScript />
+          </div>
         </body>
       </Html>
     </>
