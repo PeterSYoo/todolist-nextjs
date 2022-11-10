@@ -5,7 +5,7 @@ import { ThemeButton } from '../../components/ThemeButton.components';
 const Login = () => {
   return (
     <>
-      <section className="min-w-screen min-h-screen mx-auto flex flex-col pt-10 items-center bg-[#3d5474] md:pt-[125px] md:px-5 dark:bg-black">
+      <section className="min-w-screen min-h-screen mx-auto flex flex-col pt-10 items-center bg-[#141f2f] md:pt-[125px] md:px-5 dark:bg-black">
         <div className="md:mb-7">
           {/* Mobile Logo */}
           <Image
@@ -25,7 +25,7 @@ const Login = () => {
           />
         </div>
         {/* Mobile & Desktop Login Container */}
-        <div className="mt-10 dark:rounded-3xl dark:bg-gradient-to-r p-[2px] dark:p-[2px] dark:from-[#6EE7B7] dark:via-[#3B82F6] dark:to-[#9333EA]">
+        <div className="animate-border dark:bg-black from-purple-500 via-teal-500 to-pink-500 bg-[length:400%_400%] p-0.5 dark:hover:bg-gradient-to-r rounded-3xl mt-10">
           <div className="grid bg-white rounded-3xl shadow-lg shadow-black dark:shadow-none md:grid-cols-2 dark:bg-[#0B121C]">
             {/* Desktop Splash Image */}
             <div className="hidden md:block md:col-start-1 md:col-span-1">
@@ -37,7 +37,7 @@ const Login = () => {
               />
             </div>
             {/* Email and Password Container */}
-            <div className="w-[228px] md:w-full mx-auto mt-6 mb-10 px-4 md:col-start-2 md:col-span-1 md:px-10 md:mt-6">
+            <div className="w-[300px] md:w-full mx-auto mt-6 mb-10 px-4 md:col-start-2 md:col-span-1 md:px-10 md:mt-6">
               <div className="flex justify-center">
                 <ThemeButton />
               </div>
@@ -76,9 +76,9 @@ const Login = () => {
             {/* Mobile Splash Image */}
             <div className="md:hidden">
               <Image
-                src="https://i.imgur.com/bLNtBeu.png"
+                src="https://i.imgur.com/OzOqRnn.png"
                 alt="mobile-splash"
-                width={228}
+                width={306}
                 height={108}
               ></Image>
             </div>
