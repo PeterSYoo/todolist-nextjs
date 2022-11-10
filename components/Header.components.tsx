@@ -5,7 +5,7 @@ import { AiOutlineSearch } from 'react-icons/ai';
 export const Header = () => {
   return (
     <>
-      <section className="bg-[#0B121C] flex flex-col px-5 py-8 dark:bg-[#0B121C]">
+      <section className="bg-[#141f2f] flex flex-col px-5 py-8 dark:bg-[#141f2f]">
         <div className="md:w-full md:mx-auto md:max-w-[1024px]">
           <div className="flex justify-between items-center md:grid md:grid-cols-12">
             <div className="md:col-start-1 md:col-span-3">
