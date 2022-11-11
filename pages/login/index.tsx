@@ -1,8 +1,13 @@
 import Image from 'next/image';
-import { FiLock, FiUser } from 'react-icons/fi';
 import { ThemeButton } from '../../components/ThemeButton.components';
+import { FiLock, FiUser } from 'react-icons/fi';
+import { AiFillEye } from 'react-icons/ai';
+import { useState } from 'react';
+import { loginValidate } from '../../lib/loginValidate';
 
 const Login = () => {
+  const [show, setShow] = useState(false);
+
   return (
     <>
       <section className="min-w-screen min-h-screen mx-auto flex flex-col pt-10 items-center bg-[#141f2f] md:pt-[125px] md:px-5 dark:bg-black">
@@ -25,7 +30,7 @@ const Login = () => {
           />
         </div>
         {/* Mobile & Desktop Login Container */}
-        <div className="animate-border dark:bg-black from-purple-500 via-teal-500 to-pink-500 bg-[length:400%_400%] p-0.5 dark:hover:bg-gradient-to-r rounded-3xl mt-10">
+        <div className="animate-border dark:bg-black from-purple-500 via-teal-500 to-pink-500 bg-[length:400%_400%] p-0.5 dark:bg-gradient-to-r rounded-3xl mt-10">
           <div className="grid bg-white rounded-3xl shadow-lg shadow-black dark:shadow-none md:grid-cols-2 dark:bg-[#0B121C]">
             {/* Desktop Splash Image */}
             <div className="hidden md:block md:col-start-1 md:col-span-1">
@@ -50,7 +55,7 @@ const Login = () => {
                   <input
                     type="text"
                     placeholder="user@rapptrlabs.com"
-                    className="focus:outline-none w-full text-xs md:text-base dark:bg-[#0B121C]"
+                    className="focus:outline-none w-full text-xs md:text-base dark:bg-[#0B121C] dark:placeholder:text-gray-700"
                   />
                 </div>
               </div>
@@ -61,14 +66,22 @@ const Login = () => {
                 </div>
                 <div className="w-full">
                   <input
-                    type="text"
+                    type={`${show ? 'text' : 'password'}`}
                     placeholder="at least 4 characters"
-                    className="focus:outline-none w-full text-xs md:text-base dark:bg-[#0B121C]"
+                    className="focus:outline-none w-full text-xs md:text-base dark:bg-[#0B121C] dark:placeholder:text-gray-700"
                   />
+                </div>
+                <div>
+                  <button
+                    onClick={() => setShow(!show)}
+                    className="flex items-center ml-1 text-gray-500 dark:hover:text-white hover:text-black"
+                  >
+                    <AiFillEye size={25} />
+                  </button>
                 </div>
               </div>
               <div className="flex justify-center mt-8 md:mt-10">
-                <button className="bg-[#0B121C] w-full rounded-lg text-white py-1 font-bold tracking-wide hover:bg-white hover:text-[#0B121C] border border-[#0B121C] hover:border hover:border-gray-400 dark:border-white">
+                <button className="bg-[#0B121C] w-full rounded-lg text-white py-1 font-bold tracking-wide hover:bg-white hover:text-[#0B121C] border border-[#0B121C] hover:border hover:border-gray-400 dark:border-gray-400 dark:hover:border-white">
                   Login
                 </button>
               </div>
