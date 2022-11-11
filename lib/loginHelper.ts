@@ -6,17 +6,20 @@ interface Credentials {
   password: string;
 }
 
-export const loginUser = async (credentials: Credentials) => {
-  const response = await fetch(`${BASE}/api/login`, {
-    method: 'POST',
-    body: JSON.stringify({
-      email: credentials.email,
-      password: credentials.password,
-    }),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  }).then((response) => response.json);
+export const loginUser = async (formData: Credentials) => {
+  try {
+    const Options = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData),
+    };
 
-  console.log(response);
+    const response = await fetch(`${BASE}/api/login`, Options);
+    const json = await response.json();
+
+    console.log(json);
+    return json;
+  } catch (error) {
+    return error;
+  }
 };
