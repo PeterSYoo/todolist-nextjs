@@ -4,9 +4,30 @@ import { FiLock, FiUser } from 'react-icons/fi';
 import { AiFillEye } from 'react-icons/ai';
 import { useState } from 'react';
 import { loginValidate } from '../../lib/loginValidate';
+import { useFormik } from 'formik';
+
+interface Values {
+  email?: string;
+  password?: string;
+}
 
 const Login = () => {
   const [show, setShow] = useState(false);
+
+  const onSubmit = async (values: Values) => {
+    console.log(values);
+  };
+
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+    validate: loginValidate,
+    onSubmit,
+  });
+
+  console.log(formik.errors);
 
   return (
     <>
@@ -30,73 +51,105 @@ const Login = () => {
           />
         </div>
         {/* Mobile & Desktop Login Container */}
-        <div className="animate-border dark:bg-black from-purple-500 via-teal-500 to-pink-500 bg-[length:400%_400%] p-0.5 dark:bg-gradient-to-r rounded-3xl mt-10">
-          <div className="grid bg-white rounded-3xl shadow-lg shadow-black dark:shadow-none md:grid-cols-2 dark:bg-[#0B121C]">
-            {/* Desktop Splash Image */}
-            <div className="hidden md:block md:col-start-1 md:col-span-1">
-              <Image
-                src="https://i.imgur.com/TcdSLqh.png"
-                alt="desktop splash"
-                width={394}
-                height={336}
-              />
-            </div>
-            {/* Email and Password Container */}
-            <div className="w-[300px] md:w-full mx-auto mt-6 mb-10 px-4 md:col-start-2 md:col-span-1 md:px-10 md:mt-6">
-              <div className="flex justify-center">
-                <ThemeButton />
+        <form onSubmit={formik.handleSubmit}>
+          <div className="animate-border dark:bg-black from-purple-500 via-teal-500 to-blue-500 bg-[length:400%_400%] p-0.5 dark:bg-gradient-to-r rounded-3xl mt-10">
+            <div className="grid bg-white rounded-3xl shadow-lg shadow-black dark:shadow-none md:grid-cols-2 dark:bg-[#0B121C]">
+              {/* Desktop Splash Image */}
+              <div className="hidden md:block md:col-start-1 md:col-span-1">
+                <Image
+                  src="https://i.imgur.com/gcLRkyb.png"
+                  alt="desktop splash"
+                  width={394}
+                  height={336}
+                />
               </div>
-              <div className="leading-9">Email:</div>
-              <div className="border border-gray-400 hover:border-black rounded-md px-2 flex items-center gap-2 md:py-1 dark:border-gray-700 hover:dark:border-white">
-                <div>
-                  <FiUser />
+              {/* Email and Password Container */}
+              <div className="w-[300px] md:w-full mx-auto mt-6 mb-10 px-4 md:col-start-2 md:col-span-1 md:px-10 md:mt-6">
+                <div className="flex justify-center">
+                  <ThemeButton />
                 </div>
-                <div className="w-full">
-                  <input
-                    type="text"
-                    placeholder="user@rapptrlabs.com"
-                    className="focus:outline-none w-full text-xs md:text-base dark:bg-[#0B121C] dark:placeholder:text-gray-700"
-                  />
+                <div className="leading-9">Email:</div>
+                <div
+                  className={`${
+                    formik.errors.email
+                      ? 'border border-red-400 hover:border-red-600 rounded-md px-2 flex items-center gap-2 md:py-1 dark:border-red-500 hover:dark:border-red-600'
+                      : 'border border-gray-400 hover:border-black rounded-md px-2 flex items-center gap-2 md:py-1 dark:border-gray-700 hover:dark:border-white'
+                  }`}
+                >
+                  <div>
+                    <FiUser />
+                  </div>
+                  <div className="w-full">
+                    <input
+                      type="email"
+                      placeholder="user@rapptrlabs.com"
+                      className="focus:outline-none w-full text-xs md:text-base dark:bg-[#0B121C] dark:placeholder:text-gray-700"
+                      {...formik.getFieldProps('email')}
+                      name="email"
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className="mt-3 leading-9">Password:</div>
-              <div className="border border-gray-400 hover:border-black rounded-md px-2 flex items-center gap-2 md:py-1 dark:border-gray-700 hover:dark:border-white">
-                <div>
-                  <FiLock />
+                {formik.errors.email ? (
+                  <span className="text-red-500 text-[10px] md:text-[12px]">
+                    {formik.errors.email}
+                  </span>
+                ) : (
+                  <></>
+                )}
+                <div className="mt-3 leading-9">Password:</div>
+                <div
+                  className={`${
+                    formik.errors.password
+                      ? 'border border-red-400 hover:border-red-600 rounded-md px-2 flex items-center gap-2 md:py-1 dark:border-red-500 hover:dark:border-red-600'
+                      : 'border border-gray-400 hover:border-black rounded-md px-2 flex items-center gap-2 md:py-1 dark:border-gray-700 hover:dark:border-white'
+                  }`}
+                >
+                  <div>
+                    <FiLock />
+                  </div>
+                  <div className="w-full">
+                    <input
+                      type={`${show ? 'text' : 'password'}`}
+                      placeholder="at least 4 characters"
+                      className="focus:outline-none w-full text-xs md:text-base dark:bg-[#0B121C] dark:placeholder:text-gray-700"
+                      {...formik.getFieldProps('password')}
+                      name="password"
+                    />
+                  </div>
+                  <div>
+                    <span
+                      onClick={() => setShow(!show)}
+                      className="flex items-center ml-1 text-gray-500 dark:hover:text-white hover:text-black cursor-pointer"
+                    >
+                      <AiFillEye size={25} />
+                    </span>
+                  </div>
                 </div>
-                <div className="w-full">
-                  <input
-                    type={`${show ? 'text' : 'password'}`}
-                    placeholder="at least 4 characters"
-                    className="focus:outline-none w-full text-xs md:text-base dark:bg-[#0B121C] dark:placeholder:text-gray-700"
-                  />
-                </div>
-                <div>
-                  <button
-                    onClick={() => setShow(!show)}
-                    className="flex items-center ml-1 text-gray-500 dark:hover:text-white hover:text-black"
-                  >
-                    <AiFillEye size={25} />
+                {formik.errors.password ? (
+                  <span className="text-red-500 text-[10px] md:text-[12px]">
+                    {formik.errors.password}
+                  </span>
+                ) : (
+                  <></>
+                )}
+                <div className="flex justify-center mt-8 md:mt-10">
+                  <button className="bg-[#0B121C] w-full rounded-lg text-white py-1 font-bold tracking-wide hover:bg-white hover:text-[#0B121C] border border-[#0B121C] hover:border hover:border-gray-400 dark:border-gray-400 dark:hover:border-white">
+                    Login
                   </button>
                 </div>
               </div>
-              <div className="flex justify-center mt-8 md:mt-10">
-                <button className="bg-[#0B121C] w-full rounded-lg text-white py-1 font-bold tracking-wide hover:bg-white hover:text-[#0B121C] border border-[#0B121C] hover:border hover:border-gray-400 dark:border-gray-400 dark:hover:border-white">
-                  Login
-                </button>
+              {/* Mobile Splash Image */}
+              <div className="md:hidden">
+                <Image
+                  src="https://i.imgur.com/OzOqRnn.png"
+                  alt="mobile-splash"
+                  width={306}
+                  height={108}
+                ></Image>
               </div>
             </div>
-            {/* Mobile Splash Image */}
-            <div className="md:hidden">
-              <Image
-                src="https://i.imgur.com/OzOqRnn.png"
-                alt="mobile-splash"
-                width={306}
-                height={108}
-              ></Image>
-            </div>
           </div>
-        </div>
+        </form>
       </section>
     </>
   );
