@@ -5,17 +5,18 @@ import { AiFillEye } from 'react-icons/ai';
 import { useState } from 'react';
 import { loginValidate } from '../../lib/loginValidate';
 import { useFormik } from 'formik';
+import { loginUser } from '../../lib/loginHelper';
 
 interface Values {
-  email?: string;
-  password?: string;
+  email: string;
+  password: string;
 }
 
 const Login = () => {
-  const [show, setShow] = useState(false);
+  const [passShow, setPassShow] = useState(false);
 
-  const onSubmit = async (values: Values) => {
-    console.log(values);
+  const onSubmit = (values: Values) => {
+    loginUser(values);
   };
 
   const formik = useFormik({
@@ -26,8 +27,6 @@ const Login = () => {
     validate: loginValidate,
     onSubmit,
   });
-
-  console.log(formik.errors);
 
   return (
     <>
@@ -109,7 +108,7 @@ const Login = () => {
                   </div>
                   <div className="w-full">
                     <input
-                      type={`${show ? 'text' : 'password'}`}
+                      type={`${passShow ? 'text' : 'password'}`}
                       placeholder="at least 4 characters"
                       className="focus:outline-none w-full text-xs md:text-base dark:bg-[#0B121C] dark:placeholder:text-gray-700"
                       {...formik.getFieldProps('password')}
@@ -118,7 +117,7 @@ const Login = () => {
                   </div>
                   <div>
                     <span
-                      onClick={() => setShow(!show)}
+                      onClick={() => setPassShow(!passShow)}
                       className="flex items-center ml-1 text-gray-500 dark:hover:text-white hover:text-black cursor-pointer"
                     >
                       <AiFillEye size={25} />
@@ -133,7 +132,10 @@ const Login = () => {
                   <></>
                 )}
                 <div className="flex justify-center mt-8 md:mt-10">
-                  <button className="bg-[#0B121C] w-full rounded-lg text-white py-1 font-bold tracking-wide hover:bg-white hover:text-[#0B121C] border border-[#0B121C] hover:border hover:border-gray-400 dark:border-gray-400 dark:hover:border-white">
+                  <button
+                    type="submit"
+                    className="bg-[#0B121C] w-full rounded-lg text-white py-1 font-bold tracking-wide hover:bg-white hover:text-[#0B121C] border border-[#0B121C] hover:border hover:border-gray-400 dark:border-gray-400 dark:hover:border-white"
+                  >
                     Login
                   </button>
                 </div>
