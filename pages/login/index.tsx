@@ -132,12 +132,22 @@ const Login = () => {
                   <></>
                 )}
                 <div className="flex justify-center mt-8 md:mt-10">
-                  <button
-                    type="submit"
-                    className="bg-[#0B121C] w-full rounded-lg text-white py-1 font-bold tracking-wide hover:bg-white hover:text-[#0B121C] border border-[#0B121C] hover:border hover:border-gray-400 dark:border-gray-400 dark:hover:border-white"
-                  >
-                    Login
-                  </button>
+                  {formik.errors.email || formik.errors.password ? (
+                    <>
+                      <button className="bg-white dark:bg-[#0B121C] w-full rounded-lg text-gray-300 dark:text-gray-700 py-1 font-bold tracking-wide border border-gray-300 dark:border-gray-700 cursor-default">
+                        Login
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <button
+                        type="submit"
+                        className="bg-[#0B121C] w-full rounded-lg text-white py-1 font-bold tracking-wide hover:bg-white hover:text-[#0B121C] border border-[#0B121C] hover:border hover:border-gray-400 dark:border-gray-400 dark:hover:border-white"
+                      >
+                        Login
+                      </button>
+                    </>
+                  )}
                 </div>
               </div>
               {/* Mobile Splash Image */}
