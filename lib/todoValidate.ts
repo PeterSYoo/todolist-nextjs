@@ -1,18 +1,18 @@
 interface Values {
-  task?: string;
+  title?: string;
 }
 
 interface Errors {
-  task?: string;
+  title?: string;
 }
 
 export const todoValidate = (values: Values) => {
   const errors: Errors = {};
 
-  if (!values.task) {
-    errors.task = ' ';
-  } else if (values.task.length < 1 || values.task.length > 26) {
-    errors.task = 'Must be greater than 1 and less than 26 characters.';
+  if (!values.title) {
+    // errors.title = ' ';
+  } else if (values.title.length < 1 || values.title.length > 26) {
+    errors.title = 'Must be greater than 1 and less than 26 characters.';
   }
 
   return errors;
