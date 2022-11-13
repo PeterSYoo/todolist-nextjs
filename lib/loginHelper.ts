@@ -23,3 +23,25 @@ export const loginUser = async (formData: Credentials) => {
     return error;
   }
 };
+
+// export const loginUser = async (formData: Credentials) => {
+//   try {
+//     console.log(formData);
+
+//     const Options = {
+//       method: 'POST',
+//       headers: { 'Content-Type': 'application/json' },
+//       body: JSON.stringify(formData),
+//     };
+
+//     const response = await fetch(
+//       `http://dev.rapptrlabs.com/Tests/scripts/user-login.php`,
+//       Options
+//     );
+//     const json = await response.json();
+
+//     return json;
+//   } catch (error) {
+//     return error;
+//   }
+// };
