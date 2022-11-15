@@ -32,21 +32,26 @@ export const TodoList = () => {
 
   const showTask = (e: ShowTask) => {
     e.preventDefault();
+    /* Updates 'id' hidden input field value with uuid call. On Save button
+    submit we now have a unique id prop sent to our formik values. */
     formik.setFieldValue('id', uuid());
     setShowNew(true);
   };
 
   const appendToStorage = (values: Values) => {
     let existingEntries = JSON.parse(localStorage.getItem('todos')!);
+    // If todos item is empty, existingEntries is now an empty list.
     if (existingEntries === null) existingEntries = [];
-    localStorage.setItem('todo', JSON.stringify(values));
+    // Push formik values to our empty list.
     existingEntries.push(values);
+    // Update todos item with existingEntries list.
     localStorage.setItem('todos', JSON.stringify(existingEntries));
   };
 
   const onSubmit = (values: Values, { resetForm }: ResetForm) => {
     appendToStorage(values);
     const parsed = JSON.parse(localStorage.getItem('todos')!);
+    // Update our todos state with todos item in localStorage.
     setTodos(parsed);
     resetForm();
     setShowNew(false);
@@ -73,17 +78,22 @@ export const TodoList = () => {
   };
 
   const handleRemove = (id: string) => {
-    const newList = todos.filter(
-      (todo: { id: string | number }) => todo.id !== id
-    );
+    /* Returns a new list without the element that matches our mapped object's 
+    id prop. */
+    const newList = todos.filter((todo: { id: string }) => todo.id !== id);
+    // Update our state with the new list.
     setTodos(newList);
   };
 
   const handleUpdate = (e: React.FormEvent<HTMLInputElement>, id: string) => {
-    formik.handleChange;
+    // Create a copy of our todos list in memory by utilizing spread operator.
     const editList = [...todos];
+    /* Find single element that is equal to the current mapped element's id 
+    prop, callback lets us mutate the element in the editList array. */
     const thisItem = editList.find((x) => x.id === id);
+    // Edit the title prop of the found single element.
     thisItem.title = e.currentTarget.value;
+    // Update our state with the mutated list.
     setTodos(editList);
   };
 
@@ -97,10 +107,16 @@ export const TodoList = () => {
   console.log(todos);
 
   useEffect(() => {
+    /* If todos state is not empty, update state to localStorage item on first 
+    render. This lets us persist our data on page refresh since localStorage
+    will have our saved data. If we don't do this then our localStorage item
+    will be set to the empty todos list. */
     if (todos !== null) setTodos(parsed);
   }, []);
 
   useEffect(() => {
+    /* If todos state ever changes, update our localStorage item with todos 
+    state. */
     localStorage.setItem('todos', JSON.stringify(todos));
   }, [todos]);
 
