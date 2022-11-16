@@ -3,7 +3,10 @@ import { todoValidate } from '../lib/todoValidate';
 import { useFormik } from 'formik';
 import { v4 as uuid } from 'uuid';
 import { RiDeleteBinLine, RiEditLine, RiCheckFill } from 'react-icons/ri';
+import { SlRefresh } from 'react-icons/sl';
 import { FiDelete } from 'react-icons/fi';
+import { useSearchStore } from '../store/useSearchStore';
+import { useRouter } from 'next/router';
 
 interface Values {
   title?: string;
@@ -29,6 +32,10 @@ export const TodoList = () => {
   const [hydrated, setHydrated] = useState(false);
   const [showNew, setShowNew] = useState(false);
   const [todos, setTodos] = useState<any>([]);
+
+  const router = useRouter();
+
+  const searchTerm = useSearchStore((state) => state.searchTerm);
 
   const showTask = (e: ShowTask) => {
     e.preventDefault();
@@ -104,10 +111,12 @@ export const TodoList = () => {
     setTodos(editList);
   };
 
-  console.log(todos);
+  const handleRefresh = () => {
+    router.reload();
+  };
 
   useEffect(() => {
-    /* If todos state is not empty, update state to localStorage item on first 
+    /* If todos state is not empty, update state to localStorage item after first 
     render. This lets us persist our data on page refresh since localStorage
     will have our saved data. If we don't do this then our localStorage item
     will be set to the empty todos list. */
@@ -124,6 +133,8 @@ export const TodoList = () => {
     setHydrated(true);
   }, []);
 
+  // console.log(searchTerm);
+
   if (!hydrated) {
     return null;
   } else {
@@ -133,13 +144,25 @@ export const TodoList = () => {
           <section className="min-w-screen flex flex-col mt-14 items-center px-7 max-w-[768px] mx-auto mb-48">
             <div className="w-full">
               <div className="flex justify-between w-full">
-                <h1 className="text-2xl font-bold">My To-Do List</h1>
-                <span
-                  onClick={showTask}
-                  className="bg-blue-600 text-white font-bold border-blue-600 border dark:hover:border-white px-4 rounded-lg hover:bg-black dark:hover:bg-white dark:hover:text-black hover:border-black flex items-center cursor-pointer"
-                >
-                  New
-                </span>
+                <div>
+                  <h1 className="text-2xl font-bold">My To-Do List</h1>
+                </div>
+                <div className="flex gap-10 items-center">
+                  <span onClick={handleRefresh} className="cursor-pointer">
+                    <SlRefresh
+                      size={25}
+                      className="opacity-50 hover:opacity-100 hover:rotate-180 hover:duration-300 duration-300"
+                    />
+                  </span>
+                  <div>
+                    <span
+                      onClick={showTask}
+                      className="bg-blue-600 text-white font-bold border-blue-600 border dark:hover:border-white px-4 rounded-lg hover:bg-black dark:hover:bg-white dark:hover:text-black hover:border-black flex items-center cursor-pointer h-9"
+                    >
+                      New
+                    </span>
+                  </div>
+                </div>
               </div>
               <div className="border-b border-gray-300 border-2 w-full mt-4 dark:border-gray-500" />
 
@@ -207,55 +230,65 @@ export const TodoList = () => {
             </div>
 
             {/* Todo List */}
-            {todos?.map((todo: TodosMap) => (
-              <Fragment key={todo.id}>
-                <div className="mt-6 w-full">
-                  <div className="flex justify-between items-center">
-                    <div className="w-full pr-10">
-                      {/* Edit input field. */}
-                      <input
-                        onChange={(e) => handleUpdate(e, todo.id)}
-                        type="text"
-                        name="title"
-                        readOnly={todo.readOnly}
-                        defaultValue={todo.title}
-                        className={
-                          todo.readOnly
-                            ? 'dark:bg-black w-full bg-white focus:outline-none'
-                            : 'border border-gray-400 hover:border-black rounded-md py-2 dark:border-gray-700 hover:dark:border-white w-full px-2 focus:outline-none dark:bg-black my-3'
-                        }
-                      />
-                    </div>
-                    {/* Conditionally render edit or save. */}
-                    <div className="flex justify-end gap-6">
-                      {todo.readOnly ? (
+            {todos
+              ?.filter((todo: any) => {
+                if (searchTerm === '') {
+                  return todo;
+                } else if (
+                  todo.title.toLowerCase().includes(searchTerm.toLowerCase())
+                ) {
+                  return todo;
+                }
+              })
+              .map((todo: TodosMap) => (
+                <Fragment key={todo.id}>
+                  <div className="mt-6 w-full">
+                    <div className="flex justify-between items-center">
+                      <div className="w-full pr-10">
+                        {/* Edit input field. */}
+                        <input
+                          onChange={(e) => handleUpdate(e, todo.id)}
+                          type="text"
+                          name="title"
+                          readOnly={todo.readOnly}
+                          defaultValue={todo.title}
+                          className={
+                            todo.readOnly
+                              ? 'dark:bg-black w-full bg-white focus:outline-none'
+                              : 'border border-gray-400 hover:border-black rounded-md py-2 dark:border-gray-700 hover:dark:border-white w-full px-2 focus:outline-none dark:bg-black my-3'
+                          }
+                        />
+                      </div>
+                      {/* Conditionally render edit or save. */}
+                      <div className="flex justify-end gap-6">
+                        {todo.readOnly ? (
+                          <span
+                            onClick={() => handleEdit(todo.id)}
+                            className="text-gray-500 hover:text-black dark:hover:text-white cursor-pointer"
+                          >
+                            <RiEditLine size={20} />
+                          </span>
+                        ) : (
+                          <span
+                            onClick={() => handleEdit(todo.id)}
+                            className="text-gray-500 hover:text-black dark:hover:text-white cursor-pointer"
+                          >
+                            <RiCheckFill size={20} />
+                          </span>
+                        )}
+                        {/* Delete */}
                         <span
-                          onClick={() => handleEdit(todo.id)}
+                          onClick={() => handleRemove(todo.id)}
                           className="text-gray-500 hover:text-black dark:hover:text-white cursor-pointer"
                         >
-                          <RiEditLine size={20} />
+                          <RiDeleteBinLine size={20} />
                         </span>
-                      ) : (
-                        <span
-                          onClick={() => handleEdit(todo.id)}
-                          className="text-gray-500 hover:text-black dark:hover:text-white cursor-pointer"
-                        >
-                          <RiCheckFill size={20} />
-                        </span>
-                      )}
-                      {/* Delete */}
-                      <span
-                        onClick={() => handleRemove(todo.id)}
-                        className="text-gray-500 hover:text-black dark:hover:text-white cursor-pointer"
-                      >
-                        <RiDeleteBinLine size={20} />
-                      </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="border-b border-gray-300 w-full mt-5 dark:border-gray-700" />
-              </Fragment>
-            ))}
+                  <div className="border-b border-gray-300 w-full mt-5 dark:border-gray-700" />
+                </Fragment>
+              ))}
           </section>
         </form>
       </>
