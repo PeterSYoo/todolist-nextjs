@@ -4,9 +4,10 @@ import { AiOutlineSearch } from 'react-icons/ai';
 import { useState } from 'react';
 import { useFormik } from 'formik';
 import { useSearchStore } from '../store/useSearchStore';
+import { useRouter } from 'next/router';
 
 interface Values {
-  searchTerm?: string;
+  searchTerm: string;
 }
 
 interface ResetForm {
@@ -16,7 +17,9 @@ interface ResetForm {
 export const Header = () => {
   const updateSearchTerm = useSearchStore((state) => state.updateSearchTerm);
 
-  const onSubmit = (values: any, { resetForm }: ResetForm) => {
+  const router = useRouter();
+
+  const onSubmit = (values: Values, { resetForm }: ResetForm) => {
     updateSearchTerm(values.searchTerm);
     resetForm();
   };
@@ -81,7 +84,12 @@ export const Header = () => {
                 </div>
                 <div className="border-r border-gray-700 h-6" />
                 <div className="text-white font-bold md:text-lg">
-                  <button className="tracking-wide">Logout</button>
+                  <span
+                    onClick={() => router.push('/')}
+                    className="tracking-wide cursor-pointer"
+                  >
+                    Logout
+                  </span>
                 </div>
               </div>
             </div>
