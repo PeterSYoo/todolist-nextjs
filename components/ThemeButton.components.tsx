@@ -1,5 +1,5 @@
-import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
+import { useTheme } from 'next-themes';
 import { BsFillSunFill, BsMoonStars } from 'react-icons/bs';
 
 export const ThemeButton = () => {
