@@ -14,7 +14,7 @@ export const loginUser = async (formData: Credentials) => {
       body: JSON.stringify(formData),
     };
 
-    const response = await fetch(`${BASE}/api/login`, Options);
+    const response = await fetch(`${VERCEL}/api/login`, Options);
     const json = await response.json();
 
     console.log(json);
