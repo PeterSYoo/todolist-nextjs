@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import { ThemeButton } from './ThemeButton.components';
 import { AiOutlineSearch } from 'react-icons/ai';
-import { useState } from 'react';
 import { useFormik } from 'formik';
 import { useSearchStore } from '../store/useSearchStore';
 import { useRouter } from 'next/router';
@@ -30,10 +29,6 @@ export const Header = () => {
     },
     onSubmit,
   });
-
-  const handleSubmit = () => {
-    formik.resetForm();
-  };
 
   return (
     <>
