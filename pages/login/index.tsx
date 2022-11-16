@@ -30,7 +30,7 @@ const Login = () => {
 
   return (
     <>
-      <section className="min-w-screen min-h-screen mx-auto flex flex-col pt-10 items-center bg-[#141f2f] md:pt-[125px] md:px-5 dark:bg-black">
+      <section className="min-w-screen mx-auto flex min-h-screen flex-col items-center bg-[#141f2f] pt-10 dark:bg-black md:px-5 md:pt-[125px]">
         <div className="md:mb-7">
           {/* Mobile Logo */}
           <Image
@@ -51,10 +51,10 @@ const Login = () => {
         </div>
         {/* Mobile & Desktop Login Container */}
         <form onSubmit={formik.handleSubmit}>
-          <div className="animate-border dark:bg-black from-purple-500 via-teal-500 to-blue-500 bg-[length:400%_400%] p-0.5 dark:bg-gradient-to-r rounded-3xl mt-10">
-            <div className="grid bg-white rounded-3xl shadow-lg shadow-black dark:shadow-none md:grid-cols-2 dark:bg-[#0B121C]">
+          <div className="mt-10 animate-border rounded-3xl from-purple-500 via-teal-500 to-blue-500 bg-[length:400%_400%] p-0.5 dark:bg-black dark:bg-gradient-to-r">
+            <div className="grid rounded-3xl bg-white shadow-lg shadow-black dark:bg-[#0B121C] dark:shadow-none md:grid-cols-2">
               {/* Desktop Splash Image */}
-              <div className="hidden md:block md:col-start-1 md:col-span-1">
+              <div className="hidden md:col-span-1 md:col-start-1 md:block">
                 <Image
                   src="https://i.imgur.com/gcLRkyb.png"
                   alt="desktop splash"
@@ -63,7 +63,7 @@ const Login = () => {
                 />
               </div>
               {/* Email and Password Container */}
-              <div className="w-[300px] md:w-full mx-auto mt-6 mb-10 px-4 md:col-start-2 md:col-span-1 md:px-10 md:mt-6">
+              <div className="mx-auto mt-6 mb-10 w-[300px] px-4 md:col-span-1 md:col-start-2 md:mt-6 md:w-full md:px-10">
                 <div className="flex justify-center">
                   <ThemeButton />
                 </div>
@@ -71,8 +71,8 @@ const Login = () => {
                 <div
                   className={`${
                     formik.errors.email
-                      ? 'border border-red-400 hover:border-red-600 rounded-md px-2 flex items-center gap-2 md:py-1 dark:border-red-500 hover:dark:border-red-600'
-                      : 'border border-gray-400 hover:border-black rounded-md px-2 flex items-center gap-2 md:py-1 dark:border-gray-700 hover:dark:border-white'
+                      ? 'flex items-center gap-2 rounded-md border border-red-400 px-2 hover:border-red-600 dark:border-red-500 hover:dark:border-red-600 md:py-1'
+                      : 'flex items-center gap-2 rounded-md border border-gray-400 px-2 hover:border-black dark:border-gray-700 hover:dark:border-white md:py-1'
                   }`}
                 >
                   <div>
@@ -82,14 +82,14 @@ const Login = () => {
                     <input
                       type="email"
                       placeholder="user@rapptrlabs.com"
-                      className="focus:outline-none w-full text-xs md:text-base dark:bg-[#0B121C] dark:placeholder:text-gray-700"
+                      className="w-full text-xs focus:outline-none dark:bg-[#0B121C] dark:placeholder:text-gray-700 md:text-base"
                       {...formik.getFieldProps('email')}
                       name="email"
                     />
                   </div>
                 </div>
                 {formik.errors.email ? (
-                  <span className="text-red-500 text-[10px] md:text-[12px]">
+                  <span className="text-[10px] text-red-500 md:text-[12px]">
                     {formik.errors.email}
                   </span>
                 ) : (
@@ -99,8 +99,8 @@ const Login = () => {
                 <div
                   className={`${
                     formik.errors.password
-                      ? 'border border-red-400 hover:border-red-600 rounded-md px-2 flex items-center gap-2 md:py-1 dark:border-red-500 hover:dark:border-red-600'
-                      : 'border border-gray-400 hover:border-black rounded-md px-2 flex items-center gap-2 md:py-1 dark:border-gray-700 hover:dark:border-white'
+                      ? 'flex items-center gap-2 rounded-md border border-red-400 px-2 hover:border-red-600 dark:border-red-500 hover:dark:border-red-600 md:py-1'
+                      : 'flex items-center gap-2 rounded-md border border-gray-400 px-2 hover:border-black dark:border-gray-700 hover:dark:border-white md:py-1'
                   }`}
                 >
                   <div>
@@ -110,7 +110,7 @@ const Login = () => {
                     <input
                       type={`${passShow ? 'text' : 'password'}`}
                       placeholder="at least 4 characters"
-                      className="focus:outline-none w-full text-xs md:text-base dark:bg-[#0B121C] dark:placeholder:text-gray-700"
+                      className="w-full text-xs focus:outline-none dark:bg-[#0B121C] dark:placeholder:text-gray-700 md:text-base"
                       {...formik.getFieldProps('password')}
                       name="password"
                     />
@@ -118,23 +118,23 @@ const Login = () => {
                   <div>
                     <span
                       onClick={() => setPassShow(!passShow)}
-                      className="flex items-center ml-1 text-gray-500 dark:hover:text-white hover:text-black cursor-pointer"
+                      className="ml-1 flex cursor-pointer items-center text-gray-500 hover:text-black dark:hover:text-white"
                     >
                       <AiFillEye size={25} />
                     </span>
                   </div>
                 </div>
                 {formik.errors.password ? (
-                  <span className="text-red-500 text-[10px] md:text-[12px]">
+                  <span className="text-[10px] text-red-500 md:text-[12px]">
                     {formik.errors.password}
                   </span>
                 ) : (
                   <></>
                 )}
-                <div className="flex justify-center mt-8 md:mt-10">
+                <div className="mt-8 flex justify-center md:mt-10">
                   {formik.errors.email || formik.errors.password ? (
                     <>
-                      <button className="bg-white dark:bg-[#0B121C] w-full rounded-lg text-gray-300 dark:text-gray-700 py-1 font-bold tracking-wide border border-gray-300 dark:border-gray-700 cursor-default">
+                      <button className="w-full cursor-default rounded-lg border border-gray-300 bg-white py-1 font-bold tracking-wide text-gray-300 dark:border-gray-700 dark:bg-[#0B121C] dark:text-gray-700">
                         Login
                       </button>
                     </>
@@ -142,7 +142,7 @@ const Login = () => {
                     <>
                       <button
                         type="submit"
-                        className="bg-[#0B121C] w-full rounded-lg text-white py-1 font-bold tracking-wide hover:bg-white hover:text-[#0B121C] border border-[#0B121C] hover:border hover:border-gray-400 dark:border-gray-400 dark:hover:border-white"
+                        className="w-full rounded-lg border border-[#0B121C] bg-[#0B121C] py-1 font-bold tracking-wide text-white hover:border hover:border-gray-400 hover:bg-white hover:text-[#0B121C] dark:border-gray-400 dark:hover:border-white"
                       >
                         Login
                       </button>

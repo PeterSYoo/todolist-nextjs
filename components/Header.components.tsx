@@ -33,10 +33,10 @@ export const Header = () => {
   return (
     <>
       <form onSubmit={formik.handleSubmit}>
-        <section className="bg-[#141f2f] flex flex-col px-5 py-8 dark:bg-[#141f2f]">
-          <div className="md:w-full md:mx-auto md:max-w-[1024px]">
-            <div className="flex justify-between items-center md:grid md:grid-cols-12">
-              <div className="md:col-start-1 md:col-span-3">
+        <section className="flex flex-col bg-[#141f2f] px-5 py-8 dark:bg-[#141f2f]">
+          <div className="md:mx-auto md:w-full md:max-w-[1024px]">
+            <div className="flex items-center justify-between md:grid md:grid-cols-12">
+              <div className="md:col-span-3 md:col-start-1">
                 {/* Desktop logo */}
                 <Image
                   src="https://i.imgur.com/zJCLnNZ.png"
@@ -54,10 +54,10 @@ export const Header = () => {
                   className="md:hidden"
                 />
               </div>
-              <div className="md:col-start-4 md:col-span-9 md:flex md:justify-end md:items-center md:gap-10 flex justify-between items-center gap-6">
+              <div className="flex items-center justify-between gap-6 md:col-span-9 md:col-start-4 md:flex md:items-center md:justify-end md:gap-10">
                 {/* Desktop search input */}
-                <div className="hidden md:grid md:grid-cols-12 md:items-center md:max-w-[400px] md:w-full md:mt-1">
-                  <div className="col-start-1 col-span-10 bg-white py-2 rounded-l-3xl h-full border border-[#34455d] pl-4">
+                <div className="hidden md:mt-1 md:grid md:w-full md:max-w-[400px] md:grid-cols-12 md:items-center">
+                  <div className="col-span-10 col-start-1 h-full rounded-l-3xl border border-[#34455d] bg-white py-2 pl-4">
                     <input
                       type="text"
                       placeholder="Search"
@@ -67,21 +67,21 @@ export const Header = () => {
                       value={formik.values.searchTerm}
                     />
                   </div>
-                  <div className="col-start-11 col-span-2 bg-[#34455d] pt-2 rounded-r-3xl h-full flex justify-end pr-3 text-white">
+                  <div className="col-span-2 col-start-11 flex h-full justify-end rounded-r-3xl bg-[#34455d] pt-2 pr-3 text-white">
                     <button type="submit" className="flex">
                       <AiOutlineSearch size={25} />
                     </button>
                   </div>
                 </div>
-                <div className="border-r border-gray-600 h-6 hidden md:box" />
-                <div className="text-white mt-2">
+                <div className="md:box hidden h-6 border-r border-gray-600" />
+                <div className="mt-2 text-white">
                   <ThemeButton />
                 </div>
-                <div className="border-r border-gray-700 h-6" />
-                <div className="text-white font-bold md:text-lg">
+                <div className="h-6 border-r border-gray-700" />
+                <div className="font-bold text-white md:text-lg">
                   <span
                     onClick={() => router.push('/')}
-                    className="tracking-wide cursor-pointer"
+                    className="cursor-pointer tracking-wide"
                   >
                     Logout
                   </span>
@@ -89,8 +89,8 @@ export const Header = () => {
               </div>
             </div>
             {/* Mobile search input */}
-            <div className="grid grid-cols-12 mt-5 items-center md:hidden">
-              <div className="col-start-1 col-span-10 bg-white py-2 rounded-l-3xl h-full border border-[#34455d] pl-4">
+            <div className="mt-5 grid grid-cols-12 items-center md:hidden">
+              <div className="col-span-10 col-start-1 h-full rounded-l-3xl border border-[#34455d] bg-white py-2 pl-4">
                 <input
                   type="text"
                   placeholder="Search"
@@ -100,7 +100,7 @@ export const Header = () => {
                   value={formik.values.searchTerm}
                 />
               </div>
-              <div className="col-start-11 col-span-2 bg-[#34455d] pt-2 rounded-r-3xl h-full flex justify-end pr-3 text-white">
+              <div className="col-span-2 col-start-11 flex h-full justify-end rounded-r-3xl bg-[#34455d] pt-2 pr-3 text-white">
                 <button type="submit" className="flex">
                   <AiOutlineSearch size={25} />
                 </button>

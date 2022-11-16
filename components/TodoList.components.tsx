@@ -141,46 +141,46 @@ export const TodoList = () => {
     return (
       <>
         <form onSubmit={formik.handleSubmit}>
-          <section className="min-w-screen flex flex-col mt-14 items-center px-7 max-w-[768px] mx-auto mb-48">
+          <section className="min-w-screen mx-auto mt-14 mb-48 flex max-w-[768px] flex-col items-center px-7">
             <div className="w-full">
-              <div className="flex justify-between w-full">
+              <div className="flex w-full justify-between">
                 <div>
                   <h1 className="text-2xl font-bold">My To-Do List</h1>
                 </div>
-                <div className="flex gap-10 items-center">
+                <div className="flex items-center gap-10">
                   <span onClick={handleRefresh} className="cursor-pointer">
                     <SlRefresh
                       size={25}
-                      className="opacity-50 hover:opacity-100 hover:rotate-180 hover:duration-300 duration-300"
+                      className="opacity-50 duration-300 hover:rotate-180 hover:opacity-100 hover:duration-300"
                     />
                   </span>
                   <div>
                     <span
                       onClick={showTask}
-                      className="bg-blue-600 text-white font-bold border-blue-600 border dark:hover:border-white px-4 rounded-lg hover:bg-black dark:hover:bg-white dark:hover:text-black hover:border-black flex items-center cursor-pointer h-9"
+                      className="flex h-9 cursor-pointer items-center rounded-lg border border-blue-600 bg-blue-600 px-4 font-bold text-white hover:border-black hover:bg-black dark:hover:border-white dark:hover:bg-white dark:hover:text-black"
                     >
                       New
                     </span>
                   </div>
                 </div>
               </div>
-              <div className="border-b border-gray-300 border-2 w-full mt-4 dark:border-gray-500" />
+              <div className="mt-4 w-full border-2 border-b border-gray-300 dark:border-gray-500" />
 
               {/* Create New Task */}
               {showNew ? (
                 <>
-                  <div className="mt-6 w-full mb-2">
-                    <div className="flex justify-between items-center px-10">
+                  <div className="mt-6 mb-2 w-full">
+                    <div className="flex items-center justify-between px-10">
                       <div
                         className={`${
                           formik.errors.title
-                            ? 'border border-red-400 hover:border-red-600 rounded-md flex items-center py-3 dark:border-red-500 hover:dark:border-red-600 w-full pr-4'
-                            : 'border border-gray-400 hover:border-black rounded-md flex items-center py-3 dark:border-gray-700 hover:dark:border-white w-full pr-4'
+                            ? 'flex w-full items-center rounded-md border border-red-400 py-3 pr-4 hover:border-red-600 dark:border-red-500 hover:dark:border-red-600'
+                            : 'flex w-full items-center rounded-md border border-gray-400 py-3 pr-4 hover:border-black dark:border-gray-700 hover:dark:border-white'
                         }`}
                       >
                         <input
                           type="text"
-                          className="w-full focus:outline-none px-3 dark:bg-black dark:placeholder:text-gray-800"
+                          className="w-full px-3 focus:outline-none dark:bg-black dark:placeholder:text-gray-800"
                           placeholder="new todo"
                           {...formik.getFieldProps('title')}
                           name="title"
@@ -194,13 +194,13 @@ export const TodoList = () => {
                           value={formik.values.id}
                         />
                         {formik.errors.title ? (
-                          <span className="bg-white dark:bg-black text-gray-400 dark:text-gray-700 dark:border-gray-900 font-bold px-4 py-1 rounded-lg border border-gray-400 ">
+                          <span className="rounded-lg border border-gray-400 bg-white px-4 py-1 font-bold text-gray-400 dark:border-gray-900 dark:bg-black dark:text-gray-700 ">
                             Save
                           </span>
                         ) : (
                           <button
                             type="submit"
-                            className="bg-black dark:bg-white text-white dark:text-black font-bold px-4 py-1 rounded-lg border border-white dark:hover:bg-black dark:hover:text-white dark:hover:border dark:hover:border-gray-700 hover:bg-white hover:text-black hover:border-gray-300"
+                            className="rounded-lg border border-white bg-black px-4 py-1 font-bold text-white hover:border-gray-300 hover:bg-white hover:text-black dark:bg-white dark:text-black dark:hover:border dark:hover:border-gray-700 dark:hover:bg-black dark:hover:text-white"
                           >
                             Save
                           </button>
@@ -209,13 +209,13 @@ export const TodoList = () => {
                       <span onClick={handleCloseNew} className="ml-4">
                         <FiDelete
                           size={25}
-                          className="text-gray-500 hover:text-black dark:text-gray-800 dark:hover:text-white cursor-pointer"
+                          className="cursor-pointer text-gray-500 hover:text-black dark:text-gray-800 dark:hover:text-white"
                         />
                       </span>
                     </div>
                     <div className="flex justify-center">
                       {formik.errors.title ? (
-                        <span className="text-red-500 text-[10px] md:text-[12px]">
+                        <span className="text-[10px] text-red-500 md:text-[12px]">
                           {formik.errors.title}
                         </span>
                       ) : (
@@ -243,7 +243,7 @@ export const TodoList = () => {
               .map((todo: TodosMap) => (
                 <Fragment key={todo.id}>
                   <div className="mt-6 w-full">
-                    <div className="flex justify-between items-center">
+                    <div className="flex items-center justify-between">
                       <div className="w-full pr-10">
                         {/* Edit input field. */}
                         <input
@@ -254,8 +254,8 @@ export const TodoList = () => {
                           defaultValue={todo.title}
                           className={
                             todo.readOnly
-                              ? 'dark:bg-black w-full bg-white focus:outline-none'
-                              : 'border border-gray-400 hover:border-black rounded-md py-2 dark:border-gray-700 hover:dark:border-white w-full px-2 focus:outline-none dark:bg-black my-3'
+                              ? 'w-full bg-white focus:outline-none dark:bg-black'
+                              : 'my-3 w-full rounded-md border border-gray-400 py-2 px-2 hover:border-black focus:outline-none dark:border-gray-700 dark:bg-black hover:dark:border-white'
                           }
                         />
                       </div>
@@ -264,14 +264,14 @@ export const TodoList = () => {
                         {todo.readOnly ? (
                           <span
                             onClick={() => handleEdit(todo.id)}
-                            className="text-gray-500 hover:text-black dark:hover:text-white cursor-pointer"
+                            className="cursor-pointer text-gray-500 hover:text-black dark:hover:text-white"
                           >
                             <RiEditLine size={20} />
                           </span>
                         ) : (
                           <span
                             onClick={() => handleEdit(todo.id)}
-                            className="text-gray-500 hover:text-black dark:hover:text-white cursor-pointer"
+                            className="cursor-pointer text-gray-500 hover:text-black dark:hover:text-white"
                           >
                             <RiCheckFill size={20} />
                           </span>
@@ -279,14 +279,14 @@ export const TodoList = () => {
                         {/* Delete */}
                         <span
                           onClick={() => handleRemove(todo.id)}
-                          className="text-gray-500 hover:text-black dark:hover:text-white cursor-pointer"
+                          className="cursor-pointer text-gray-500 hover:text-black dark:hover:text-white"
                         >
                           <RiDeleteBinLine size={20} />
                         </span>
                       </div>
                     </div>
                   </div>
-                  <div className="border-b border-gray-300 w-full mt-5 dark:border-gray-700" />
+                  <div className="mt-5 w-full border-b border-gray-300 dark:border-gray-700" />
                 </Fragment>
               ))}
           </section>
