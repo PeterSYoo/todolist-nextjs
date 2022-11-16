@@ -4,7 +4,6 @@ import Head from 'next/head';
 import { ThemeProvider } from 'next-themes';
 import { useEffect, useState } from 'react';
 import Router from 'next/router';
-import { LoaderSpinner } from '../components/LoaderSpinner.components';
 
 export default function App({ Component, pageProps }: AppProps) {
   const [loading, setLoading] = useState(false);
@@ -35,15 +34,9 @@ export default function App({ Component, pageProps }: AppProps) {
         <title>Todo List - NextJS</title>
       </Head>
       <ThemeProvider enableSystem={true} attribute="class">
-        {loading ? (
-          <>
-            <LoaderSpinner />
-          </>
-        ) : (
-          <>
-            <Component {...pageProps} />
-          </>
-        )}
+        <>
+          <Component {...pageProps} />
+        </>
       </ThemeProvider>
     </>
   );
